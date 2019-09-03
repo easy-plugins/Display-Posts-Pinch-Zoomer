@@ -99,6 +99,7 @@ if ( ! class_exists( 'Display_Posts_Pinch_Zoomer' ) ) {
 		 */
 		private function hooks() {
 
+			add_filter( 'shortcode_atts_display-posts', array( __CLASS__, 'shortcodeArgs' ), 10, 3 );
 			add_filter( 'display_posts_shortcode_output', array( __CLASS__, 'postItem' ), 10, 11 );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueueCSS' ) );
 		}
@@ -251,6 +252,29 @@ if ( ! class_exists( 'Display_Posts_Pinch_Zoomer' ) ) {
 		}
 
 		/**
+		 * Callback for the `shortcode_atts_display-post` filter.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array  $out   The output array of shortcode attributes.
+		 * @param array  $pairs The supported attributes and their defaults.
+		 * @param array  $atts  The user defined shortcode attributes.
+		 *
+		 * @return array
+		 */
+		public static function shortcodeArgs( $out, $pairs, $atts ) {
+
+			$options = Display_Posts_Pinch_Zoomer()->shortcodeAtts( $atts );
+
+			if ( TRUE === $options['pz-enabled'] ) {
+
+				add_action( 'wp_footer', array( __CLASS__, 'enqueueJS' ) );
+			}
+
+			return $out;
+		}
+
+		/**
 		 * Callback for the `display_posts_shortcode_output` filter.
 		 *
 		 * @since 1.0
@@ -291,8 +315,8 @@ if ( ! class_exists( 'Display_Posts_Pinch_Zoomer' ) ) {
 				return $html;
 			}
 
-			// Add action which will enqueue the PZ scripts.
-			add_action( 'wp_footer', array( __CLASS__, 'enqueueJS' ) );
+			//// Add action which will enqueue the PZ scripts.
+			//add_action( 'wp_footer', array( __CLASS__, 'enqueueJS' ) );
 
 			$image_size   = sanitize_key( $original_atts['image_size'] );
 			$include_link = filter_var( $original_atts['include_link'], FILTER_VALIDATE_BOOLEAN );
