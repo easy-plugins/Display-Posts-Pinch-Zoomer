@@ -1,6 +1,6 @@
 <?php
 /**
- * @package   Display Posts Shortcode - Pinch Zoomer
+ * @package   Easy Plugins: Display Posts - Pinch Zoomer
  * @category  Extension
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
@@ -8,15 +8,15 @@
  * @copyright 2018 Steven A. Zahm
  *
  * @wordpress-plugin
- * Plugin Name:       Display Posts Shortcode - Pinch Zoomer
+ * Plugin Name:       Easy Plugins: Display Posts - Pinch Zoomer
  * Plugin URI:        https://connections-pro.com/
- * Description:       An extension for the Display Posts Shortcode plugin which adds support pinch zooming post images.
+ * Description:       An extension for the Easy Plugins: Display Posts plugin which adds support pinch zooming post images.
  * Version:           1.0
  * Author:            Steven A. Zahm
  * Author URI:        https://connections-pro.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       display-posts-shortcode-pinch-zoomer
+ * Text Domain:       easy-plugins-display-posts-pinch-zoomer
  * Domain Path:       /languages
  */
 
