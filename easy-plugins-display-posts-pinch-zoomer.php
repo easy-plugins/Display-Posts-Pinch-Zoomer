@@ -189,9 +189,9 @@ if ( ! class_exists( 'Display_Posts_Pinch_Zoomer' ) ) {
 
 			return array(
 				'pz-enabled'  => TRUE,
-				'pz-initZoom' => 1,
-				'pz-maxZoom'  => 2,
-				'pz-minZoom'  => 1,
+				'pz-initzoom' => 1,
+				'pz-maxzoom'  => 2,
+				'pz-minzoom'  => 1,
 			);
 		}
 
@@ -209,9 +209,9 @@ if ( ! class_exists( 'Display_Posts_Pinch_Zoomer' ) ) {
 
 			self::toBoolean( $atts['pz-enabled'] );
 
-			$atts['pz-initZoom'] = absint( $atts['pz-initZoom'] );
-			$atts['pz-maxZoom']  = absint( $atts['pz-maxZoom'] );
-			$atts['pz-minZoom']  = absint( $atts['pz-minZoom'] );
+			$atts['pz-initzoom'] = absint( $atts['pz-initzoom'] );
+			$atts['pz-maxzoom']  = absint( $atts['pz-maxzoom'] );
+			$atts['pz-minzoom']  = absint( $atts['pz-minzoom'] );
 
 			return $atts;
 		}
@@ -238,9 +238,9 @@ if ( ! class_exists( 'Display_Posts_Pinch_Zoomer' ) ) {
 				$attr['data-options'] = '';
 
 				$data['preloaderUrl'] = "{$url}includes/vendor/pinch-zoomer/{$folder}/assets/preloader.gif";
-				$data['initZoom']     = absint( $options['pz-initZoom'] );
-				$data['maxZoom']      = absint( $options['pz-maxZoom'] );
-				$data['minZoom']      = absint( $options['pz-minZoom'] );
+				$data['initZoom']     = absint( $options['pz-initzoom'] );
+				$data['maxZoom']      = absint( $options['pz-maxzoom'] );
+				$data['minZoom']      = absint( $options['pz-minzoom'] );
 
 				foreach ( $data as $property => $value ) {
 
