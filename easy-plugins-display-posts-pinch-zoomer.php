@@ -100,7 +100,8 @@ if ( ! class_exists( 'Display_Posts_Pinch_Zoomer' ) ) {
 		private function hooks() {
 
 			add_filter( 'shortcode_atts_display-posts', array( __CLASS__, 'shortcodeArgs' ), 10, 3 );
-			add_filter( 'display_posts_shortcode_output', array( __CLASS__, 'postItem' ), 10, 11 );
+			add_filter( 'display_posts_shortcode_output', array( __CLASS__, 'postItem' ), 10, 11 ); // Display Posts Shortcode
+			add_filter( 'Easy_Plugins/Display_Posts/Post/Image', array( __CLASS__, 'postImage'), 10, 4); // Easy Plugins: Display Posts
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueueCSS' ) );
 		}
 
@@ -368,6 +369,40 @@ if ( ! class_exists( 'Display_Posts_Pinch_Zoomer' ) ) {
 				$author,
 				$category_display_text
 				);
+
+			return $html;
+		}
+
+		/**
+		 * @param string $image         HTML markup to display post image.
+		 * @param string $image_size   The image size to display.
+		 * @param bool   $include_link Whether or not to display the image as the post permalink.
+		 * @param array  $atts         Original attributes passed to the shortcode.
+		 *
+		 * @return string
+		 */
+		public static function postImage( $image, $image_size, $include_link, $atts ) {
+
+			$options = Display_Posts_Pinch_Zoomer()->shortcodeAtts( $atts );
+
+			// If PZ is not enabled, no need to process the filter to add post image attributes.
+			if ( ! $options['pz-enabled'] ) {
+
+				return $image;
+			}
+
+			$imageAttributes = Display_Posts_Pinch_Zoomer()->postImageAttributes( $options );
+
+			if ( $image_size && has_post_thumbnail() && $include_link && ! $options['pz-enabled'] ) {
+
+				$image = '<a class="image" href="' . get_permalink() . '">' . get_the_post_thumbnail( get_the_ID(), $image_size, $imageAttributes ) . '</a> ';
+
+			} elseif( $image_size && has_post_thumbnail() ) {
+
+				$image = '<span class="image" style="display: block;">' . get_the_post_thumbnail( get_the_ID(), $image_size, $imageAttributes ) . '</span> ';
+			}
+
+			$html = '<div style="width: 100%; height: auto; position: relative; overflow: hidden;">' . $image . '</div>';
 
 			return $html;
 		}
